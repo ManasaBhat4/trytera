@@ -4,14 +4,9 @@ on:
   workflow_dispatch:
     inputs:
       terraform_action:
-        type: choice
-        description: Select Terraform action
-        options:
-          - apply
-          - destroy
         description: 'Action to perform with Terraform'
         required: true
-        default: 'apply'  
+        default: 'plan'
 
 jobs:
   terraform:
@@ -40,5 +35,5 @@ jobs:
         run: terraform plan
       
       - name: Apply Terraform Changes
-        if: ${{ github.event.inputs.terraform_action == 'apply' }}  
+        if: github.event.inputs.terraform_action == 'apply'
         run: terraform apply -auto-approve
