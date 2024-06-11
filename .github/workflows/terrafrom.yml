@@ -22,7 +22,7 @@ jobs:
       AWS_SECRET_ACCESS_KEY: ${{secrets.AWS_DEVOPS_SECRET_ACCESS_KEY }}
 
     runs-on: ubuntu-latest
-    environment: production
+    
 
     steps:
     # Checkout the repository to the GitHub Actions runner
@@ -31,7 +31,7 @@ jobs:
 
     # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
     - name: Terraform Init
-      uses: hashicorp/terraform-github-actions@master
+      uses: hashicorp/setup-terraform@v1
       with:
         tf_actions_subcommand: 'init'
         tf_actions_working_dir: '.'
@@ -39,10 +39,8 @@ jobs:
         
     
     - name: Terraform plan
-      uses: hashicorp/terraform-github-actions@master
-      with:
+      uses: hashicorp/setup-terraform@v1
         tf_actions_subcommand: 'plan'
-        tf_actions_working_dir: '.'
         tf_actions_comment: true
         
       
