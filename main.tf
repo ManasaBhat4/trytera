@@ -1,12 +1,7 @@
-data "aws_ami" "ubuntu" {
-  most_recent = true
-}
-
-resource "aws_instance" "web" {
-  ami           = data.aws_ami.ubuntu.id
-  instance_type = var.instance_type
-
+resource "aws_instance" "mana1" {
+  ami           = "ami-09040d770ffe2224f"                 
+ instance_type = var.instance_type 
   tags = {
-    Name = "HelloWorld"
+    Name = "mana"
   }
 }
