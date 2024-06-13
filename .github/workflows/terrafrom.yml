@@ -4,16 +4,25 @@ on:
   workflow_dispatch:
     inputs:
       terraform_action:
-        description: 'Action to perform with Terraform'
+        type: choice
+        description: select terraform action
+        options:
+          - apply
         required: true
-        default: 'apply'
+      chosen_runner:
+        description: 'Select the runner'
+        required: true
+        default: 'ubuntu-latest'
+        
   push:
     branches:
       - master
+
 jobs:
   terraform:
     name: Terraform Apply
-    runs-on: ubuntu-latest
+    runs-on: ${{ github.event.inputs.chosen_runner }}
+
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
@@ -39,6 +48,7 @@ jobs:
       - name: Apply Terraform Changes
         if: github.event.inputs.terraform_action == 'apply'
         run: terraform apply -auto-approve
+
 
 
 
